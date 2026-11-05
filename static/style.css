@@ -1,0 +1,275 @@
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --muted: #6b7280;
+    --text: #111827;
+    --line: rgba(0, 0, 0, 0.08);
+    --good: #16a34a;
+    --bad: #dc2626;
+    --accent: #2563eb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 0;
+}
+
+.wrap {
+    max-width: 980px;
+    margin: auto;
+    padding: 0 16px;
+}
+
+/* ---------- HEADER ---------- */
+
+.header {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.title h1 {
+    margin: 0;
+    font-size: 26px;
+    letter-spacing: 0.2px;
+}
+
+.title p {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* ---------- CARD ---------- */
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+.quick-card {
+    padding: 12px;
+    min-width: 320px;
+}
+
+.quick-title {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.quick-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.quick-label {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* ---------- FORM ---------- */
+
+select,
+button {
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: #ffffff;
+    color: var(--text);
+    padding: 9px 12px;
+    outline: none;
+}
+
+select {
+    min-width: 120px;
+}
+
+button {
+    cursor: pointer;
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+    font-weight: 600;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* ---------- RESULT HEADER ---------- */
+
+.card-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.card-head-title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 10px;
+    color: var(--muted);
+    font-size: 12px;
+    background: #f9fafb;
+}
+
+.pill b {
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* ---------- GRID ---------- */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.metric {
+    grid-column: span 4;
+    background: #f9fafb;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px;
+    min-height: 78px;
+}
+
+.metric .k {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.metric .v {
+    margin-top: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* ---------- NOTE ---------- */
+
+.note-box {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: var(--muted);
+    line-height: 1.35;
+}
+
+/* ---------- DELTA ---------- */
+
+.delta.up {
+    color: var(--good);
+}
+
+.delta.down {
+    color: var(--bad);
+}
+
+/* ---------- FOOTER ---------- */
+
+.footer-note {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* ---------- ERROR ---------- */
+
+.error {
+    margin-top: 14px;
+    border-color: rgba(220, 38, 38, 0.35);
+    background: rgba(220, 38, 38, 0.06);
+}
+
+/* ---------- LOADER ---------- */
+
+.loader {
+    display: none;
+    margin-left: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-top-color: rgba(0, 0, 0, 0.6);
+    animation: spin 0.8s linear infinite;
+}
+
+/* ---------- DROPDOWN ---------- */
+
+select option {
+    background-color: #ffffff;
+    color: #111827;
+}
+
+/* ---------- ANIMATION ---------- */
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 860px) {
+    .metric {
+        grid-column: span 6;
+    }
+
+    .quick-card {
+        min-width: 280px;
+    }
+}
+
+@media (max-width: 520px) {
+    .metric {
+        grid-column: span 12;
+    }
+
+    .header {
+        flex-direction: column;
+    }
+
+    .quick-card {
+        width: 100%;
+    }
+}

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crypto Forecast H+1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="page">
+        <div class="wrap">
+            <div class="header">
+                <div class="title">
+                    <h1>Prediksi Harga Crypto (H+1) — Attention-LSTM</h1>
+                    <p>Input window {{ lookback }} hari terakhir dari Yahoo Finance, prediksi harga penutupan untuk H+1.
+                    </p>
+                </div>
+
+                <div class="card quick-card">
+                    <div class="quick-title">Prediksi</div>
+                    <form method="POST" id="predictForm" class="quick-form">
+                        <label class="quick-label">Aset:</label>
+                        <select name="asset">
+                            <option value="BTC" {{ 'selected' if asset=='BTC' else '' }}>BTC</option>
+                            <option value="ETH" {{ 'selected' if asset=='ETH' else '' }}>ETH</option>
+                            <option value="BNB" {{ 'selected' if asset=='BNB' else '' }}>BNB</option>
+                        </select>
+                        <button type="submit">Prediksi <span class="loader" id="loader"></span></button>
+                    </form>
+                </div>
+            </div>
+
+            {% if result %}
+            <div class="card">
+                <div class="card-head">
+                    <div class="card-head-title">Hasil Prediksi</div>
+                    <div class="pill">
+                        Data terakhir: <b>{{ result.last_date }}</b>
+                        <span class="arrow">→</span>
+                        Target: <b>{{ result.target_date }}</b>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="metric">
+                        <div class="k">Aset</div>
+                        <div class="v">{{ result.asset }}</div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="k">Last Close</div>
+                        <div class="v">{{ fmt_money(result.last_close) }}</div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="k">Prediksi Close (H+1)</div>
+                        <div class="v">{{ fmt_money(result.pred_h1) }}</div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="k">Perubahan</div>
+                        <div class="v delta {{ result.trend }}">
+                            {{ fmt_money(result.delta) }} ({{ fmt_pct(result.pct) }})
+                        </div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="k">Lookback</div>
+                        <div class="v">{{ result.lookback }} hari</div>
+                    </div>
+
+                    <!-- <div class="metric">
+                        <div class="k">Keterangan</div>
+                        <div class="v note-box">{{ result.note }}</div>
+                    </div> -->
+                </div>
+
+                <div class="footer-note">
+                    Catatan: Prediksi bergantung pada pola historis (window {{ lookback }} hari) dan tidak dimaksudkan
+                    sebagai sinyal trading.
+                </div>
+            </div>
+            {% endif %}
+
+            {% if error %}
+            <div class="card error">
+                <b>Error:</b> {{ error }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById("predictForm");
+        const loader = document.getElementById("loader");
+        if (form) {
+            form.addEventListener("submit", () => { loader.style.display = "inline-block"; });
+        }
+    </script>
+</body>
+
+</html>
